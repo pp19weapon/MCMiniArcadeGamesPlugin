@@ -32,6 +32,7 @@ public class FortDefenseHandler {
         currentWorld = usingPlayer.getWorld();
         centralLocation = usingPlayer.getLocation();
         waveHandler = new WaveHandler();
+
     }
 
     public void startGame(){

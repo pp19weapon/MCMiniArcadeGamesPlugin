@@ -34,8 +34,8 @@ public class MonsterHandler {
 
     public void spawnWave(Wave wave){
 
-        for (int i = 0; i <= wave.getEntitiesToSpawn().length - 1; i++){
-            for (int count = 0; count <= wave.getNumbersToSpawn()[i]; count++) {
+        for (int i = 0; i <= wave.getEntitiesToSpawn().size() - 1; i++){
+            for (int count = 0; count <= wave.getNumbersToSpawn().get(i); count++) {
                 double x = Math.random() * (maxSpawnDistance - (-maxSpawnDistance) + 1) + -maxSpawnDistance;
                 System.out.println("Rand Spawn x " + x);
                 x = x > 0 ? centralLocation.getBlockX() + x + fortSize + offset : centralLocation.getBlockX() - x - fortSize - offset;
@@ -47,11 +47,9 @@ public class MonsterHandler {
                 double y = FortDefenseHandler.findHighestValidBlock(world, new Location(world, x, 0, z)) + 1;
 
                 Location spawnLocation = new Location(world, x, y, z);
-                Entity ent = world.spawnEntity(spawnLocation, wave.getEntitiesToSpawn()[i]);
+                world.spawnEntity(spawnLocation, wave.getEntitiesToSpawn().get(i));
 
-
-
-                System.out.println("Spawning " + wave.getEntitiesToSpawn()[i].name() + " at " + spawnLocation.toString());
+                System.out.println("Spawning " + wave.getEntitiesToSpawn().get(i).name() + " at " + spawnLocation.toString());
             }
         }
     }

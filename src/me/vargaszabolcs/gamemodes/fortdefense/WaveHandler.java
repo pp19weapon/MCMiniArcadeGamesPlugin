@@ -1,10 +1,11 @@
 package me.vargaszabolcs.gamemodes.fortdefense;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
-import org.bukkit.plugin.Plugin;
+
+
+import java.util.ArrayList;
 
 public class WaveHandler {
     WaveHandler(){}
@@ -12,6 +13,7 @@ public class WaveHandler {
     int waveSpawnerTaskID;
     boolean isStarted = false;
     MonsterHandler monsterHandler;
+
     public void startWaves(FortDefenseHandler p_fortDefenseHandler){
         if (!isStarted) {
             monsterHandler = new MonsterHandler(p_fortDefenseHandler, 2, 5);
@@ -38,6 +40,8 @@ public class WaveHandler {
 class WaveSpawner implements Runnable{
     World currentWorld;
     MonsterHandler monsterHandler;
+    boolean alreadySpawned = false;
+    int currentWave = 1;
 
     WaveSpawner(World p_world, MonsterHandler p_monsterHandler){
         currentWorld = p_world;
@@ -51,20 +55,50 @@ class WaveSpawner implements Runnable{
         return true;
     }
 
-    Wave testWave = new Wave(new EntityType[]{EntityType.BLAZE, EntityType.SKELETON}, new int[]{20, 20});
-    boolean alreadySpawned = false;
+    Wave wave;
+    ArrayList<EntityType> entities = new ArrayList<EntityType>();
+    ArrayList<Integer> count = new ArrayList<Integer>();
 
     @Override
     public void run() {
         if (isNighttime()) {
             if (alreadySpawned == false) {
-                monsterHandler.spawnWave(testWave);
+                Bukkit.getServer().broadcastMessage("Wave " + currentWave + "!");
+                switch (currentWave) {
+                    case 1:
+                        entities.add(EntityType.ZOMBIE);
+                        count.add(10);
+                        entities.add(EntityType.SKELETON);
+                        count.add(10);
+                        break;
+                    case 3:
+                        entities.add(EntityType.CAVE_SPIDER);
+                        count.add(10);
+                        break;
+                    case 6:
+                        entities.add(EntityType.CREEPER);
+                        count.add(2);
+                        break;
+                    case 10:
+                        entities.add(EntityType.BLAZE);
+                        count.add(1);
+                }
+
+                wave = new Wave(entities, count);
+                monsterHandler.spawnWave(wave);
                 alreadySpawned = true;
+                currentWave++;
+
+                // Multiplicators
+                for (int i = 0; i < count.size(); i++){
+                    count.set(i, count.get(i) * currentWave);
+                }
             }
         } else if (!isNighttime()) {
             if (alreadySpawned == true) {
                 alreadySpawned = false;
             }
         }
+
     }
 }

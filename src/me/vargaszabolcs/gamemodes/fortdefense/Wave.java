@@ -3,17 +3,19 @@ package me.vargaszabolcs.gamemodes.fortdefense;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
+import java.util.ArrayList;
+
 public class Wave {
-    public EntityType[] getEntitiesToSpawn() {
+    public ArrayList<EntityType> getEntitiesToSpawn() {
         return entitiesToSpawn;
     }
 
-    public int[] getNumbersToSpawn() {
+    public ArrayList<Integer> getNumbersToSpawn() {
         return numbersToSpawn;
     }
 
-    private EntityType[] entitiesToSpawn;
-    private int[] numbersToSpawn; //Each must correspond with an entity in the above list
+    private ArrayList<EntityType> entitiesToSpawn;
+    private ArrayList<Integer> numbersToSpawn; //Each must correspond with an entity in the above list
 
     public int getTotalEntitiesToSpawn() {
         int total = 0;
@@ -24,7 +26,7 @@ public class Wave {
     }
 
 
-    Wave (EntityType[] ent, int[] num){
+    Wave (ArrayList<EntityType> ent, ArrayList<Integer> num){
         entitiesToSpawn = ent;
         numbersToSpawn = num;
     }
