@@ -16,12 +16,12 @@ import java.util.List;
 
 public class FortDefenseHandler {
 
-    private Location centralLocation = null;
-    private int fortSize = 25;
-    private static int MAX_ALLOWED_MOBS = 20;
-    private boolean isGameRunning = false;
-    private Plugin plugin;
-    private World currentWorld;
+    //TODO make it configurable
+    public Location centralLocation = null;
+    public int fortSize = 25;
+    public boolean isGameRunning = false;
+    public Plugin plugin;
+    public World currentWorld;
 
     WaveHandler waveHandler;
 
@@ -36,54 +36,19 @@ public class FortDefenseHandler {
 
     public void startGame(){
         isGameRunning = true;
-        prepareFort(currentWorld);
-        startCheckingMonstersInArea(currentWorld);
-        waveHandler.startWaves(plugin, currentWorld, centralLocation, fortSize);
+        prepareFort();
+        waveHandler.startWaves(this);
 
     }
 
     public void stopGame(){
-        stopCheckingMonstersInArea();
+        waveHandler.stopWaves();
         isGameRunning = false;
     }
 
-    int taskID = -1;
-    private void startCheckingMonstersInArea(World currentWorld){
-        taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                checkMonstersInArea(currentWorld);
-            }
-        }, 40, 200);
-    }
-    private void stopCheckingMonstersInArea(){
-        if (taskID != -1) {
-            Bukkit.getScheduler().cancelTask(taskID);
-        }
-    }
 
-    private int lastTimeMonstersInArea = 0;
-    private void checkMonstersInArea(World currentWorld) {
-        int mobsInArea = 0;
-        if (centralLocation != null) {
-            List<Entity> entitiesInArea = (List<Entity>) currentWorld.getNearbyEntities(centralLocation, fortSize, 7, fortSize);
-            for (Entity entity : entitiesInArea) {
-                if (entity instanceof Monster) {
-                    mobsInArea++;
-                }
-            }
 
-            if ((mobsInArea <= MAX_ALLOWED_MOBS) && (mobsInArea != lastTimeMonstersInArea)) {
-                Bukkit.getServer().broadcastMessage("WARNING! Currently " + mobsInArea + " monsters in fort area out of " + MAX_ALLOWED_MOBS + "!");
-                lastTimeMonstersInArea = mobsInArea;
-            } else if (mobsInArea > MAX_ALLOWED_MOBS) {
-                Bukkit.getServer().broadcastMessage(mobsInArea + " monsters made it into the fort, GG!");
-                stopGame();
-            }
-        }
-    }
-
-    private void prepareFort(World currentWorld) {
+    private void prepareFort() {
         centralLocation.getBlock().setType(Material.GLOWSTONE);
 
         Location blockPlaceLoc = null;

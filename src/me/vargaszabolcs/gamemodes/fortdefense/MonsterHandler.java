@@ -1,24 +1,35 @@
 package me.vargaszabolcs.gamemodes.fortdefense;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
+import org.bukkit.plugin.Plugin;
+
+import java.util.List;
 
 public class MonsterHandler {
+    //TODO make it configurable
+    public static int MAX_ALLOWED_MOBS = 20;
+
     private Location centralLocation;
     private int fortSize;
     private int offset;
     private int maxSpawnDistance;
     private World world;
 
-    MonsterHandler(World wrd, Location loc, int fortsize, int distOffset, int maxdistance){
-        centralLocation = loc;
-        world = wrd;
-        fortSize = fortsize;
-        maxSpawnDistance = maxdistance;
-        offset = distOffset;
+    FortDefenseHandler fortDefenseHandler;
+
+    MonsterHandler(FortDefenseHandler p_fortDefenseHandler, int p_maxSpawnDistance, int p_offset){
+        fortDefenseHandler = p_fortDefenseHandler;
+        centralLocation = fortDefenseHandler.centralLocation;
+        world = fortDefenseHandler.currentWorld;
+        fortSize = fortDefenseHandler.fortSize;
+        maxSpawnDistance = p_maxSpawnDistance;
+        offset = p_offset;
     }
 
     public void spawnWave(Wave wave){
@@ -41,6 +52,42 @@ public class MonsterHandler {
 
 
                 System.out.println("Spawning " + wave.getEntitiesToSpawn()[i].name() + " at " + spawnLocation.toString());
+            }
+        }
+    }
+
+    int taskID = -1;
+    public void startCheckingMonstersInArea(Plugin plugin){
+        taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                checkMonstersInArea(world);
+            }
+        }, 40, 200);
+    }
+    public void stopCheckingMonstersInArea(){
+        if (taskID != -1) {
+            Bukkit.getScheduler().cancelTask(taskID);
+        }
+    }
+
+    int lastTimeMonstersInArea = 0;
+    private void checkMonstersInArea(World currentWorld) {
+        int mobsInArea = 0;
+        if (centralLocation != null) {
+            List<Entity> entitiesInArea = (List<Entity>) currentWorld.getNearbyEntities(centralLocation, fortSize, 7, fortSize);
+            for (Entity entity : entitiesInArea) {
+                if (entity instanceof Monster) {
+                    mobsInArea++;
+                }
+            }
+
+            if ((mobsInArea <= MAX_ALLOWED_MOBS) && (mobsInArea != lastTimeMonstersInArea)) {
+                Bukkit.getServer().broadcastMessage("WARNING! Currently " + mobsInArea + " monsters in fort area out of " + MAX_ALLOWED_MOBS + "!");
+                lastTimeMonstersInArea = mobsInArea;
+            } else if (mobsInArea > MAX_ALLOWED_MOBS) {
+                Bukkit.getServer().broadcastMessage(mobsInArea + " monsters made it into the fort, GG!");
+                fortDefenseHandler.stopGame();
             }
         }
     }

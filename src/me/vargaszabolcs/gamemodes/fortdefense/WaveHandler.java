@@ -9,11 +9,29 @@ import org.bukkit.plugin.Plugin;
 public class WaveHandler {
     WaveHandler(){}
 
-    public void startWaves(Plugin plugin, World currentWorld, Location centralLocation, int fortSize){
-        MonsterHandler monsterHandler = new MonsterHandler(currentWorld, centralLocation, fortSize, 2, 5);
+    int waveSpawnerTaskID;
+    boolean isStarted = false;
+    MonsterHandler monsterHandler;
+    public void startWaves(FortDefenseHandler p_fortDefenseHandler){
+        if (!isStarted) {
+            monsterHandler = new MonsterHandler(p_fortDefenseHandler, 2, 5);
+            monsterHandler.startCheckingMonstersInArea(p_fortDefenseHandler.plugin);
 
-        WaveSpawner waveSpawner = new WaveSpawner(currentWorld, monsterHandler);
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, waveSpawner, 20, 400);
+            WaveSpawner waveSpawner = new WaveSpawner(p_fortDefenseHandler.currentWorld, monsterHandler);
+            waveSpawnerTaskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(p_fortDefenseHandler.plugin, waveSpawner, 20, 400);
+
+
+            isStarted = true;
+        }
+    }
+
+    public void stopWaves(){
+        if (isStarted){
+            Bukkit.getScheduler().cancelTask(waveSpawnerTaskID);
+            monsterHandler.stopCheckingMonstersInArea();
+
+            isStarted = false;
+        }
     }
 }
 
