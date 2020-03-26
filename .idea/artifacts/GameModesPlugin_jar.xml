@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="GameModesPlugin:jar">
+    <output-path>D:/DEV/MCServerShell/plugins</output-path>
+    <root id="archive" name="GameModesPlugin.jar">
+      <element id="module-output" name="GameModesPlugin" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../spigot-api-1.15.2-R0.1-SNAPSHOT.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

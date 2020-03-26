@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="GameModesPlugin:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fbdf90c4-a586-4fb7-999e-72bfa50c6144" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1ZJQWGEMvvRseliTtLfE8jvKStW" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="last_opened_file_path" value="D:/DEV/MCServerShell/plugins" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="me.vargaszabolcs.gamemodes.fortdefense" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fbdf90c4-a586-4fb7-999e-72bfa50c6144" name="Default Changelist" comment="" />
+      <created>1584554747047</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1584554747047</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="765" y="269" key="#com.intellij.ide.util.MemberChooser" timestamp="1585154034902">
+      <screen x="0" y="40" width="1920" height="1040" />
+    </state>
+    <state x="765" y="269" key="#com.intellij.ide.util.MemberChooser/0.40.1920.1040@0.40.1920.1040" timestamp="1585154034902" />
+    <state x="723" y="341" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1584624455196">
+      <screen x="0" y="40" width="1920" height="1040" />
+    </state>
+    <state x="723" y="341" key="#com.intellij.ide.util.PackageChooserDialog/0.40.1920.1040@0.40.1920.1040" timestamp="1584624455196" />
+    <state x="690" y="343" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1584555716432">
+      <screen x="0" y="40" width="1920" height="1040" />
+    </state>
+    <state x="690" y="343" key="#com.intellij.ide.util.TreeClassChooserDialog/0.40.1920.1040@0.40.1920.1040" timestamp="1584555716432" />
+    <state x="756" y="445" width="473" height="239" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1584624468027">
+      <screen x="0" y="40" width="1920" height="1040" />
+    </state>
+    <state x="756" y="445" width="473" height="239" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.40.1920.1040@0.40.1920.1040" timestamp="1584624468027" />
+    <state x="740" y="314" key="FileChooserDialogImpl" timestamp="1584559628184">
+      <screen x="0" y="40" width="1920" height="1040" />
+    </state>
+    <state x="740" y="314" key="FileChooserDialogImpl/0.40.1920.1040@0.40.1920.1040" timestamp="1584559628184" />
+    <state x="440" y="134" key="SettingsEditor" timestamp="1585223473222">
+      <screen x="0" y="40" width="1920" height="1040" />
+    </state>
+    <state x="440" y="134" key="SettingsEditor/0.40.1920.1040@0.40.1920.1040" timestamp="1585223473222" />
+    <state x="661" y="384" key="com.intellij.ide.util.TipDialog" timestamp="1585223129409">
+      <screen x="0" y="40" width="1920" height="1040" />
+    </state>
+    <state x="661" y="384" key="com.intellij.ide.util.TipDialog/0.40.1920.1040@0.40.1920.1040" timestamp="1585223129409" />
+    <state x="1016" y="284" key="extract.method.dialog" timestamp="1584564104212">
+      <screen x="0" y="40" width="1920" height="1040" />
+    </state>
+    <state x="1016" y="284" key="extract.method.dialog/0.40.1920.1040@0.40.1920.1040" timestamp="1584564104212" />
+    <state x="702" y="179" key="refactoring.ChangeSignatureDialog" timestamp="1584626103514">
+      <screen x="0" y="40" width="1920" height="1040" />
+    </state>
+    <state x="702" y="179" key="refactoring.ChangeSignatureDialog/0.40.1920.1040@0.40.1920.1040" timestamp="1584626103514" />
+  </component>
+</project>
