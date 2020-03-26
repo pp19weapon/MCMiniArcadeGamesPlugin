@@ -1,9 +1,0 @@
-name: GameModes
-version: 0.1
-author: VargaSzabolcs
-main: me.vargaszabolcs.gamemodes.GameModes
-api-version: 1.15
-commands:
-  fort:
-    description: Sets up the basics for playing fort game!
-    usage: Use /setfort where you plan to build your fort and play the game.
