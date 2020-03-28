@@ -1,12 +1,14 @@
 package me.vargaszabolcs.gamemodes.fortdefense;
 
+import net.minecraft.server.v1_15_R1.*;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftEntity;
+import org.bukkit.entity.*;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Monster;
-import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.plugin.Plugin;
 
 import java.util.List;
@@ -25,9 +27,9 @@ public class MonsterHandler {
 
     MonsterHandler(FortDefenseHandler p_fortDefenseHandler, int p_maxSpawnDistance, int p_offset){
         fortDefenseHandler = p_fortDefenseHandler;
-        centralLocation = fortDefenseHandler.centralLocation;
-        world = fortDefenseHandler.currentWorld;
-        fortSize = fortDefenseHandler.fortSize;
+        centralLocation = p_fortDefenseHandler.centralLocation;
+        world = p_fortDefenseHandler.currentWorld;
+        fortSize = p_fortDefenseHandler.fortSize;
         maxSpawnDistance = p_maxSpawnDistance;
         offset = p_offset;
     }
@@ -47,11 +49,21 @@ public class MonsterHandler {
                 double y = FortDefenseHandler.findHighestValidBlock(world, new Location(world, x, 0, z)) + 1;
 
                 Location spawnLocation = new Location(world, x, y, z);
-                world.spawnEntity(spawnLocation, wave.getEntitiesToSpawn().get(i));
-
-                System.out.println("Spawning " + wave.getEntitiesToSpawn().get(i).name() + " at " + spawnLocation.toString());
+                spawnEntity(spawnLocation, wave.getEntitiesToSpawn().get(i));
             }
         }
+    }
+
+    private net.minecraft.server.v1_15_R1.Entity spawnEntity(Location spawnLoc, EntityType entType){
+        //WorldServer nmsworld = ((CraftWorld) spawnLoc.getWorld()).getHandle();
+        net.minecraft.server.v1_15_R1.Entity ent = ((CraftEntity) world.spawnEntity(spawnLoc, entType)).getHandle();
+        ent.setCustomName(new ChatComponentText("PUSSYFUCKER"));
+        ent.setCustomNameVisible(true);
+        ((EntityMonster) ent).targetSelector.a(0, new PathfinderGoalNearestAttackableTarget((EntityInsentient) ent, EntityHuman.class, true));
+
+        System.out.println("Spawning " + entType.toString() + " at " + spawnLoc.toString());
+
+        return ent;
     }
 
     int taskID = -1;
@@ -73,7 +85,7 @@ public class MonsterHandler {
     private void checkMonstersInArea(World currentWorld) {
         int mobsInArea = 0;
         if (centralLocation != null) {
-            List<Entity> entitiesInArea = (List<Entity>) currentWorld.getNearbyEntities(centralLocation, fortSize, 7, fortSize);
+            List<Entity> entitiesInArea = (List<Entity>) currentWorld.getNearbyEntities(centralLocation, fortSize, 3, fortSize);
             for (Entity entity : entitiesInArea) {
                 if (entity instanceof Monster) {
                     mobsInArea++;

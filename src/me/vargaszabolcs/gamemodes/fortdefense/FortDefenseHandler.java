@@ -18,7 +18,7 @@ public class FortDefenseHandler {
 
     //TODO make it configurable
     public Location centralLocation = null;
-    public int fortSize = 25;
+    public int fortSize = 10;
     public boolean isGameRunning = false;
     public Plugin plugin;
     public World currentWorld;
@@ -71,7 +71,7 @@ public class FortDefenseHandler {
                 {
                     int y = findHighestValidBlock(currentWorld, new Location(currentWorld, x, 0, z));
                     blockPlaceLoc = new Location(currentWorld, x, y, z);
-                    currentWorld.getBlockAt(blockPlaceLoc).setType(Material.BEDROCK);
+                    currentWorld.getBlockAt(blockPlaceLoc).setType(Material.OAK_WOOD);
                 }
             }
         }
